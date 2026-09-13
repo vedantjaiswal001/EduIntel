@@ -1,0 +1,36 @@
+# Lightweight production dependencies for a small cloud instance (e.g. Render).
+# Drops the heavy deep-learning stack (torch / transformers / sentence-transformers)
+# — the app falls back to deterministic hashing embeddings + rule-based NLP, and
+# the LLM analyst uses Gemini over HTTP. Real risk ML (scikit-learn / XGBoost) and
+# SHAP explanations are kept.
+
+# ---- Web / API ----
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.9.2
+pydantic-settings==2.6.1
+email-validator==2.2.0
+python-multipart==0.0.12
+httpx==0.27.2
+tenacity==9.0.0
+
+# ---- Database ----
+SQLAlchemy==2.0.36
+psycopg2-binary==2.9.10
+pgvector==0.3.6
+alembic==1.14.0
+
+# ---- Data / classical ML (no torch) ----
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.13.1
+scikit-learn==1.5.2
+xgboost==2.1.2
+joblib==1.4.2
+shap==0.46.0
+optuna==4.1.0
+
+# ---- Documents & LLM ----
+pypdf==5.1.0
+google-generativeai==0.8.3
+Faker==33.1.0

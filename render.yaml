@@ -1,0 +1,32 @@
+# Render Blueprint — one-click deploy of EduIntel (web service + Postgres).
+# In Render: New → Blueprint → connect your GitHub repo → apply. Then set the
+# GEMINI_API_KEY value when prompted (optional; the app runs without it).
+databases:
+  - name: eduintel-db
+    plan: free
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: eduintel
+    runtime: docker
+    plan: free
+    dockerfilePath: ./deploy/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: eduintel-db
+          property: connectionString
+      - key: GEMINI_API_KEY
+        sync: false          # set your key in the Render dashboard (optional)
+      - key: EDUINTEL_SEED_STUDENTS
+        value: "300"         # smaller dataset keeps first-boot seeding within free-tier memory
+      - key: DEBUG
+        value: "false"
+      - key: ENVIRONMENT
+        value: "production"
+      - key: PYTHONUNBUFFERED
+        value: "1"

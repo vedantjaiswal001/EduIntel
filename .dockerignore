@@ -1,0 +1,14 @@
+# Keep the Docker build context small.
+**/node_modules
+**/.venv
+**/dist
+**/__pycache__
+**/*.pyc
+.git
+.ruff_cache
+.pytest_cache
+data/synthetic/*.csv
+data/synthetic/*.json
+models/*.joblib
+docs/screenshots
+*.zip

@@ -1,0 +1,36 @@
+# ---- Secrets ----
+.env
+*.env.local
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# ---- ML artifacts / data (kept out of VCS; regenerate with scripts) ----
+models/*.joblib
+models/*.pkl
+models/*.pt
+data/processed/*
+data/synthetic/*
+!data/**/.gitkeep
+mlruns/
+
+# ---- Node / frontend ----
+node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+
+# ---- Editors / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
