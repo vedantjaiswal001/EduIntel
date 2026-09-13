@@ -1,0 +1,591 @@
+{
+  "dataset_version": "synthetic-v1",
+  "feature_version": "fe-v1",
+  "seed": 42,
+  "n_samples": 1000,
+  "class_distribution": {
+    "LOW_RISK": 544,
+    "MEDIUM_RISK": 262,
+    "HIGH_RISK": 194
+  },
+  "features": {
+    "baseline": [
+      "attendance_pct",
+      "quiz_avg",
+      "assignment_avg",
+      "midterm_avg",
+      "prev_gpa",
+      "num_courses",
+      "missed_assignments"
+    ],
+    "engineered": [
+      "attendance_pct",
+      "quiz_avg",
+      "assignment_avg",
+      "midterm_avg",
+      "prev_gpa",
+      "num_courses",
+      "missed_assignments",
+      "rolling_mean_score",
+      "score_slope",
+      "attendance_slope",
+      "assignment_consistency",
+      "performance_volatility",
+      "recent_performance_delta",
+      "topic_weakness_score",
+      "submission_delay_mean"
+    ]
+  },
+  "models": {
+    "logreg": {
+      "accuracy": 0.85,
+      "precision_macro": 0.8311688311688311,
+      "recall_macro": 0.8320395201129146,
+      "f1_macro": 0.826550148584047,
+      "roc_auc_ovr_macro": 0.9622090659436093,
+      "pr_auc_macro": 0.8932344954686616,
+      "per_class": {
+        "LOW_RISK": {
+          "precision": 0.9696969696969697,
+          "recall": 0.8807339449541285,
+          "f1": 0.9230769230769231
+        },
+        "MEDIUM_RISK": {
+          "precision": 0.6666666666666666,
+          "recall": 0.8461538461538461,
+          "f1": 0.7457627118644068
+        },
+        "HIGH_RISK": {
+          "precision": 0.8571428571428571,
+          "recall": 0.7692307692307693,
+          "f1": 0.8108108108108109
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW_RISK",
+          "MEDIUM_RISK",
+          "HIGH_RISK"
+        ],
+        "matrix": [
+          [
+            96,
+            13,
+            0
+          ],
+          [
+            3,
+            44,
+            5
+          ],
+          [
+            0,
+            9,
+            30
+          ]
+        ]
+      },
+      "false_negative_analysis": {
+        "n_high_risk": 39,
+        "high_recall": 0.7692307692307693,
+        "high_false_negatives": 9,
+        "high_missed_as_low": 0,
+        "note": "HIGH-risk students predicted LOW are the costliest errors; high_recall and high_missed_as_low are the key monitoring metrics."
+      },
+      "calibration": {
+        "brier_high": 0.05403714577620084,
+        "reliability": [
+          {
+            "bin": 0.05,
+            "mean_pred": 0.007,
+            "frac_positive": 0.021,
+            "count": 140
+          },
+          {
+            "bin": 0.15,
+            "mean_pred": 0.139,
+            "frac_positive": 0.111,
+            "count": 9
+          },
+          {
+            "bin": 0.25,
+            "mean_pred": 0.246,
+            "frac_positive": 0.2,
+            "count": 5
+          },
+          {
+            "bin": 0.35,
+            "mean_pred": 0.344,
+            "frac_positive": 0.444,
+            "count": 9
+          },
+          {
+            "bin": 0.45,
+            "mean_pred": 0.444,
+            "frac_positive": 0.0,
+            "count": 2
+          },
+          {
+            "bin": 0.55,
+            "mean_pred": 0.581,
+            "frac_positive": 1.0,
+            "count": 1
+          },
+          {
+            "bin": 0.65,
+            "mean_pred": 0.626,
+            "frac_positive": 1.0,
+            "count": 4
+          },
+          {
+            "bin": 0.75,
+            "mean_pred": 0.751,
+            "frac_positive": 0.2,
+            "count": 5
+          },
+          {
+            "bin": 0.85,
+            "mean_pred": 0.864,
+            "frac_positive": 0.875,
+            "count": 8
+          },
+          {
+            "bin": 0.95,
+            "mean_pred": 0.989,
+            "frac_positive": 1.0,
+            "count": 17
+          }
+        ]
+      },
+      "cv_f1_mean": 0.8674,
+      "cv_f1_std": 0.0155,
+      "cv_f1_ci95": [
+        0.8538,
+        0.881
+      ]
+    },
+    "rf": {
+      "accuracy": 0.84,
+      "precision_macro": 0.8095912394977817,
+      "recall_macro": 0.7960479887085391,
+      "f1_macro": 0.7998236331569665,
+      "roc_auc_ovr_macro": 0.9562843432508371,
+      "pr_auc_macro": 0.8754365133094549,
+      "per_class": {
+        "LOW_RISK": {
+          "precision": 0.9439252336448598,
+          "recall": 0.926605504587156,
+          "f1": 0.9351851851851852
+        },
+        "MEDIUM_RISK": {
+          "precision": 0.6666666666666666,
+          "recall": 0.7692307692307693,
+          "f1": 0.7142857142857143
+        },
+        "HIGH_RISK": {
+          "precision": 0.8181818181818182,
+          "recall": 0.6923076923076923,
+          "f1": 0.75
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW_RISK",
+          "MEDIUM_RISK",
+          "HIGH_RISK"
+        ],
+        "matrix": [
+          [
+            101,
+            8,
+            0
+          ],
+          [
+            6,
+            40,
+            6
+          ],
+          [
+            0,
+            12,
+            27
+          ]
+        ]
+      },
+      "false_negative_analysis": {
+        "n_high_risk": 39,
+        "high_recall": 0.6923076923076923,
+        "high_false_negatives": 12,
+        "high_missed_as_low": 0,
+        "note": "HIGH-risk students predicted LOW are the costliest errors; high_recall and high_missed_as_low are the key monitoring metrics."
+      },
+      "calibration": {
+        "brier_high": 0.057335611111111115,
+        "reliability": [
+          {
+            "bin": 0.05,
+            "mean_pred": 0.009,
+            "frac_positive": 0.007,
+            "count": 135
+          },
+          {
+            "bin": 0.15,
+            "mean_pred": 0.137,
+            "frac_positive": 0.231,
+            "count": 13
+          },
+          {
+            "bin": 0.25,
+            "mean_pred": 0.256,
+            "frac_positive": 0.333,
+            "count": 12
+          },
+          {
+            "bin": 0.35,
+            "mean_pred": 0.35,
+            "frac_positive": 0.5,
+            "count": 2
+          },
+          {
+            "bin": 0.45,
+            "mean_pred": 0.455,
+            "frac_positive": 0.6,
+            "count": 5
+          },
+          {
+            "bin": 0.55,
+            "mean_pred": 0.547,
+            "frac_positive": 0.0,
+            "count": 1
+          },
+          {
+            "bin": 0.65,
+            "mean_pred": 0.639,
+            "frac_positive": 0.556,
+            "count": 9
+          },
+          {
+            "bin": 0.75,
+            "mean_pred": 0.761,
+            "frac_positive": 1.0,
+            "count": 4
+          },
+          {
+            "bin": 0.85,
+            "mean_pred": 0.859,
+            "frac_positive": 0.8,
+            "count": 5
+          },
+          {
+            "bin": 0.95,
+            "mean_pred": 0.981,
+            "frac_positive": 1.0,
+            "count": 14
+          }
+        ]
+      },
+      "cv_f1_mean": 0.8582,
+      "cv_f1_std": 0.0144,
+      "cv_f1_ci95": [
+        0.8456,
+        0.8708
+      ]
+    },
+    "xgb": {
+      "accuracy": 0.83,
+      "precision_macro": 0.7965839510151467,
+      "recall_macro": 0.7887163804594998,
+      "f1_macro": 0.7911972578639247,
+      "roc_auc_ovr_macro": 0.9494853895282694,
+      "pr_auc_macro": 0.8631117581216223,
+      "per_class": {
+        "LOW_RISK": {
+          "precision": 0.9345794392523364,
+          "recall": 0.9174311926605505,
+          "f1": 0.9259259259259259
+        },
+        "MEDIUM_RISK": {
+          "precision": 0.6551724137931034,
+          "recall": 0.7307692307692307,
+          "f1": 0.6909090909090909
+        },
+        "HIGH_RISK": {
+          "precision": 0.8,
+          "recall": 0.717948717948718,
+          "f1": 0.7567567567567568
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW_RISK",
+          "MEDIUM_RISK",
+          "HIGH_RISK"
+        ],
+        "matrix": [
+          [
+            100,
+            9,
+            0
+          ],
+          [
+            7,
+            38,
+            7
+          ],
+          [
+            0,
+            11,
+            28
+          ]
+        ]
+      },
+      "false_negative_analysis": {
+        "n_high_risk": 39,
+        "high_recall": 0.717948717948718,
+        "high_false_negatives": 11,
+        "high_missed_as_low": 0,
+        "note": "HIGH-risk students predicted LOW are the costliest errors; high_recall and high_missed_as_low are the key monitoring metrics."
+      },
+      "calibration": {
+        "brier_high": 0.07404819271000226,
+        "reliability": [
+          {
+            "bin": 0.05,
+            "mean_pred": 0.004,
+            "frac_positive": 0.051,
+            "count": 156
+          },
+          {
+            "bin": 0.15,
+            "mean_pred": 0.123,
+            "frac_positive": 0.25,
+            "count": 4
+          },
+          {
+            "bin": 0.25,
+            "mean_pred": 0.246,
+            "frac_positive": 0.0,
+            "count": 2
+          },
+          {
+            "bin": 0.35,
+            "mean_pred": 0.347,
+            "frac_positive": 0.5,
+            "count": 2
+          },
+          {
+            "bin": 0.45,
+            "mean_pred": 0.436,
+            "frac_positive": 1.0,
+            "count": 1
+          },
+          {
+            "bin": 0.55,
+            "mean_pred": 0.515,
+            "frac_positive": 1.0,
+            "count": 1
+          },
+          {
+            "bin": 0.65,
+            "mean_pred": 0.663,
+            "frac_positive": 0.0,
+            "count": 2
+          },
+          {
+            "bin": 0.75,
+            "mean_pred": 0.768,
+            "frac_positive": 0.0,
+            "count": 1
+          },
+          {
+            "bin": 0.85,
+            "mean_pred": 0.848,
+            "frac_positive": 0.667,
+            "count": 6
+          },
+          {
+            "bin": 0.95,
+            "mean_pred": 0.992,
+            "frac_positive": 0.92,
+            "count": 25
+          }
+        ]
+      },
+      "cv_f1_mean": 0.8631,
+      "cv_f1_std": 0.0067,
+      "cv_f1_ci95": [
+        0.8572,
+        0.869
+      ]
+    },
+    "xgb-tuned": {
+      "accuracy": 0.83,
+      "precision_macro": 0.7965839510151467,
+      "recall_macro": 0.7887163804594998,
+      "f1_macro": 0.7911972578639247,
+      "roc_auc_ovr_macro": 0.952847313961195,
+      "pr_auc_macro": 0.8696307686359143,
+      "per_class": {
+        "LOW_RISK": {
+          "precision": 0.9345794392523364,
+          "recall": 0.9174311926605505,
+          "f1": 0.9259259259259259
+        },
+        "MEDIUM_RISK": {
+          "precision": 0.6551724137931034,
+          "recall": 0.7307692307692307,
+          "f1": 0.6909090909090909
+        },
+        "HIGH_RISK": {
+          "precision": 0.8,
+          "recall": 0.717948717948718,
+          "f1": 0.7567567567567568
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW_RISK",
+          "MEDIUM_RISK",
+          "HIGH_RISK"
+        ],
+        "matrix": [
+          [
+            100,
+            9,
+            0
+          ],
+          [
+            7,
+            38,
+            7
+          ],
+          [
+            0,
+            11,
+            28
+          ]
+        ]
+      },
+      "false_negative_analysis": {
+        "n_high_risk": 39,
+        "high_recall": 0.717948717948718,
+        "high_false_negatives": 11,
+        "high_missed_as_low": 0,
+        "note": "HIGH-risk students predicted LOW are the costliest errors; high_recall and high_missed_as_low are the key monitoring metrics."
+      },
+      "calibration": {
+        "brier_high": 0.06643634315438371,
+        "reliability": [
+          {
+            "bin": 0.05,
+            "mean_pred": 0.008,
+            "frac_positive": 0.039,
+            "count": 152
+          },
+          {
+            "bin": 0.15,
+            "mean_pred": 0.137,
+            "frac_positive": 0.4,
+            "count": 5
+          },
+          {
+            "bin": 0.25,
+            "mean_pred": 0.23,
+            "frac_positive": 0.25,
+            "count": 4
+          },
+          {
+            "bin": 0.35,
+            "mean_pred": 0.308,
+            "frac_positive": 1.0,
+            "count": 1
+          },
+          {
+            "bin": 0.45,
+            "mean_pred": 0.434,
+            "frac_positive": 0.333,
+            "count": 3
+          },
+          {
+            "bin": 0.55,
+            "mean_pred": 0.541,
+            "frac_positive": 0.0,
+            "count": 1
+          },
+          {
+            "bin": 0.65,
+            "mean_pred": 0.65,
+            "frac_positive": 0.5,
+            "count": 2
+          },
+          {
+            "bin": 0.75,
+            "mean_pred": 0.753,
+            "frac_positive": 0.4,
+            "count": 5
+          },
+          {
+            "bin": 0.85,
+            "mean_pred": 0.839,
+            "frac_positive": 0.667,
+            "count": 3
+          },
+          {
+            "bin": 0.95,
+            "mean_pred": 0.981,
+            "frac_positive": 0.958,
+            "count": 24
+          }
+        ]
+      },
+      "cv_f1_mean": 0.8707,
+      "cv_f1_std": 0.0158,
+      "cv_f1_ci95": [
+        0.8568,
+        0.8845
+      ]
+    }
+  },
+  "ablation": {
+    "baseline": {
+      "f1_macro": 0.7672206561784657,
+      "high_recall": 0.717948717948718,
+      "roc_auc": 0.9327559301631898
+    },
+    "engineered": {
+      "f1_macro": 0.7911972578639247,
+      "high_recall": 0.717948717948718,
+      "roc_auc": 0.9494853895282694
+    },
+    "f1_gain": 0.024
+  },
+  "optuna": {
+    "best_params": {
+      "n_estimators": 550,
+      "max_depth": 4,
+      "learning_rate": 0.026055614206180563,
+      "subsample": 0.8736932106048627,
+      "colsample_bytree": 0.7760609974958406,
+      "min_child_weight": 2,
+      "reg_lambda": 2.475884550556351
+    },
+    "baseline_xgb_f1": 0.7911972578639247,
+    "optimized_xgb_f1": 0.7911972578639247,
+    "f1_gain": 0.0
+  },
+  "selected_model": {
+    "kind": "logreg",
+    "selection_score": 0.7979
+  },
+  "calibration_comparison": {
+    "raw_brier_high": 0.054,
+    "sigmoid_calibrated_brier_high": 0.0604
+  },
+  "model_version": {
+    "id": 1,
+    "version": "20260913075940-2fb0a88a9b",
+    "artifact": "/app/models/risk-model-20260913075940-2fb0a88a9b.joblib"
+  },
+  "predictions_stored": 1000,
+  "explanations_generated": 1000
+}

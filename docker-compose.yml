@@ -1,0 +1,51 @@
+# EduIntel full stack: postgres (pgvector) + FastAPI backend + React frontend.
+# Usage:  docker compose up --build
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-eduintel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-eduintel}
+      POSTGRES_DB: ${POSTGRES_DB:-eduintel}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-eduintel} -d ${POSTGRES_DB:-eduintel}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./scripts:/app/scripts
+    # Create schema (idempotent) then serve. Seeding is a separate command
+    # (see scripts/) so container restarts don't regenerate data.
+    command: >
+      sh -c "python -m app.db.init_db &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  pgdata:
